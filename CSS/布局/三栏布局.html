@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .left-float {
+            float: left;
+            width: 200px;
+            background-color: greenyellow;
+        }
+
+        .middle-float {
+            background-color: grey;
+            margin: 0 200px;
+        }
+
+        .right-float {
+            float: right;
+            width: 200px;
+            background-color: yellow;
+        }
+
+        .wraper-flex {
+            display: flex;
+        }
+
+        .left-flex {
+            width: 200px;
+            background-color: greenyellow;
+        }
+
+        .middle-flex {
+            background-color: grey;
+            flex: 1;
+        }
+
+        .right-flex {
+            width: 200px;
+            background-color: yellow;
+        }
+
+        .wraper-float-adv {
+            position: relative;
+            height: 400px;
+        }
+
+        .top-float {
+            background-color: lightseagreen;
+            height: 50px;
+            width: 100%;
+            position: absolute;
+            top: 0;
+        }
+
+        .center-float {
+            background-color: khaki;
+            position: absolute;
+            top: 50px;
+            bottom: 50px;
+            width: 100%;
+        }
+
+        .bottom-float {
+            background-color: mediumslateblue;
+            height: 50px;
+            width: 100%;
+            position: absolute;
+            bottom: 0;
+        }
+
+        .center-float .left-float,
+        .center-float .middle-float,
+        .center-float .right-float {
+            height: 100%;
+        }
+
+        .wraper-flex-adv {
+            height: 400px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .top-flex {
+            background-color: lightseagreen;
+            height: 50px;
+            width: 100%;
+        }
+
+        .center-flex {
+            background-color: khaki;
+            width: 100%;
+            flex: 1;
+            display: flex;
+        }
+
+        .bottom-flex {
+            background-color: mediumslateblue;
+            height: 50px;
+            width: 100%;
+        }
+
+        .center-flex .left-flex+.middle-flex+.right-flex {
+            height: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    浮动方式【浮动的元素只会覆盖后面的块级元素，不影响前边的块级元素】
+    <div class="wraper-float">
+        <div class="left-float">left</div>
+        <div class="right-float">right</div>
+        <!-- 顺序很重要，因为 浮动的元素只会覆盖后面的块级元素，不影响前边的块级元素 -->
+        <div class="middle-float">middle</div>
+    </div>
+    浮动方式【更改顺序】
+    <div class="wraper-float">
+        <div class="left-float">left</div>
+        <div class="middle-float">middle</div>
+        <div class="right-float">right</div>
+    </div>
+    flex方式
+    <div class="wraper-flex">
+        <div class="left-flex">left</div>
+        <div class="middle-flex">middle</div>
+        <div class="right-flex">right</div>
+    </div>
+    <hr>
+    上中下，左中右
+    <hr>
+    浮动方式
+    <div class="wraper-float-adv">
+        <div class="top-float">top</div>
+        <div class="center-float">
+            <div class="left-float">left</div>
+            <div class="right-float">right</div>
+            <div class="middle-float">middle</div>
+        </div>
+        <div class="bottom-float">bottom</div>
+    </div>
+    flex方式
+    <div class="wraper-flex-adv">
+        <div class="top-flex">top</div>
+        <div class="center-flex">
+            <div class="left-flex">left</div>
+            <div class="middle-flex">middle</div>
+            <div class="right-flex">right</div>
+        </div>
+        <div class="bottom-flex">bottom</div>
+    </div>
+</body>
+
+</html>

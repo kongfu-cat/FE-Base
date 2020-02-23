@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>跨域测试</title>
+    <style>
+        html,
+        body {
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+
+        .page {
+            margin: 0 auto;
+        }
+
+        .result {
+            background-color: orange;
+            width: 100%;
+            height: 200px;
+            float: left;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="page">
+        <div class="result">
+            <div>Result</div>
+            <div id="resDiv"></div>
+        </div>
+        <div class="operate">
+            <div>Send A Ajax</div>
+            <button id="ajaxBtn">Send</button>
+            <div>Send A JSONP</div>
+            <button id="jsonpBtn">Send</button>
+            <div>Send A CORS</div>
+            <button id="corsBtn1">Send 简单请求</button>
+            <button id="corsBtn2">Send 预检请求</button>
+            <div>Nginx反向代理</div>
+            <button id="nginxBtn">Send</button>
+            <div>Node Proxy代理服务器</div>
+            <button id="proxyBtn">Send</button>
+            <div>Send A WebSocket</div>
+            <button id="wsBtn">Send</button>
+            <div>document.domain + iframe跨域</div>
+            <div>window.name + iframe跨域</div>
+            <div>location.hash + iframe跨域</div>
+            <div>postMessage跨域</div>
+        </div>
+    </div>
+</body>
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+<script src="https://cdn.bootcss.com/socket.io/2.2.0/socket.io.js"></script>
+<script>
+    var $ajaxBtn = $('#ajaxBtn')
+    var $jsonpBtn = $('#jsonpBtn')
+    var $corsBtn1 = $('#corsBtn1')
+    var $corsBtn2 = $('#corsBtn2')
+    var $proxyBtn = $('#proxyBtn')
+    var $wsBtn = $('#wsBtn')
+    var $resDiv = $('#resDiv')
+    $ajaxBtn.on('click', sendAjax)
+    $jsonpBtn.on('click', sendJsonp)
+    $corsBtn1.on('click', sendCors1)
+    $corsBtn2.on('click', sendCors2)
+    $proxyBtn.on('click', sendProxy)
+    $wsBtn.on('click', sendWS)
+
+    function errorLog(e) {
+        var msg = `error: code:${e.status}, responseText:${e.responseText}`
+        $resDiv.text(msg)
+    }
+    function successLog(result) {
+        if (typeof result === 'object') {
+            result = JSON.stringify(result, null, 2)
+        }
+        var isObjectString = true
+        try { JSON.parse(result) } catch{ isObjectString = false }
+        if (typeof result === 'string' && isObjectString) {
+            result = JSON.stringify(JSON.parse(result), null, 2)
+        }
+        var msg = `success: ${result}`
+        console.log(msg)
+        $resDiv.text(msg)
+    }
+
+    function sendAjax() {
+        $.ajax({
+            method: 'get',
+            url: 'http://127.0.0.1:10888?type=ajax',
+            success: successLog,
+            error: errorLog
+        })
+    }
+    function sendJsonp() {
+        $.ajax({
+            method: 'get',
+            url: 'http://127.0.0.1:10888?type=jsonp',
+            dataType: 'jsonp',  // 请求方式为jsonp
+            jsonpCallback: "successLog"
+        })
+    }
+    function sendCors1() {
+        $.ajax({
+            method: 'get',
+            url: 'http://127.0.0.1:10888?type=cors1',
+            xhrFields: {
+                withCredentials: true    // 前端设置是否带cookie
+            },
+            crossDomain: true,   // 会让请求头中包含跨域的额外信息，但不会含cookie
+            success: successLog,
+            error: errorLog
+        })
+    }
+    function sendCors2() {
+        $.ajax({
+            method: 'get',
+            url: 'http://127.0.0.1:10888?type=jsonp',
+            dataType: 'jsonp',  // 请求方式为jsonp
+            jsonpCallback: "successLog"
+        })
+    }
+    function sendProxy() {
+        $.ajax({
+            method: 'get',
+            url: 'http://127.0.0.1:13000?type=proxy',
+            success: successLog,
+            error: errorLog
+        })
+    }
+    var socket = io('http://127.0.0.1:10888?type=ws');
+    function WSInit() {
+        // 连接成功处理
+        socket.on('connect', function () {
+            // 监听服务端消息
+            socket.on('message', function (msg) {
+                console.log('data from server: ---> ' + msg);
+            });
+
+            // 监听服务端关闭
+            socket.on('disconnect', function () {
+                console.log('Server socket has closed.');
+            });
+        });
+    }
+    WSInit()
+    function sendWS() {
+        socket.send('send ws msg')
+    }
+</script>
+
+</html>

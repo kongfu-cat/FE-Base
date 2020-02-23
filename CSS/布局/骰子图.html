@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flex骰子图</title>
+    <style>
+        ul,
+        li {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .container {
+            width: 100px;
+            height: 100px;
+            background-color: #333;
+            border-radius: 10px;
+            margin: 10px;
+        }
+
+        .container li {
+            width: 30px;
+            height: 30px;
+            background-color: #fff;
+            border-radius: 30px;
+        }
+
+        .container-1 {
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: center;
+            align-content: center;
+        }
+
+        .container-2 {
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: space-around;
+            align-content: center;
+        }
+
+        .container-3 {
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: space-between;
+        }
+
+        .container-3 li:nth-child(2) {
+            align-self: center;
+        }
+
+        .container-3 li:nth-child(3) {
+            align-self: flex-end;
+        }
+
+        .container-4 {
+            display: flex;
+            flex-flow: row wrap;
+            align-content: space-between;
+        }
+
+        .container-4>div {
+            display: flex;
+            flex-flow: row wrap;
+            flex: 1 1 100%;
+            justify-content: space-between;
+        }
+
+        .container-5 {
+            display: flex;
+            flex-flow: row wrap;
+            align-content: space-between;
+        }
+
+        .container-5>div {
+            display: flex;
+            flex-flow: row wrap;
+            flex: 1 1 100%;
+            justify-content: space-between;
+        }
+
+        .container-5>div:nth-child(2) {
+            justify-content: center;
+        }
+
+        /* 无效？？？为何 */
+        /* .container-5>div:nth-child(2) li {
+            justify-self: center;
+        } */
+
+        .container-6 {
+            display: flex;
+            flex-flow: column wrap;
+            justify-content: space-between;
+            align-content: space-between;
+        }
+    </style>
+</head>
+
+<body>
+    <ul class="container container-1">
+        <li></li>
+    </ul>
+    <ul class="container container-2">
+        <li></li>
+        <li></li>
+    </ul>
+    <ul class="container container-3">
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    <ul class="container container-4">
+        <div>
+            <li></li>
+            <li></li>
+        </div>
+        <div>
+            <li></li>
+            <li></li>
+        </div>
+    </ul>
+    <ul class="container container-5">
+        <div>
+            <li></li>
+            <li></li>
+        </div>
+        <div>
+            <li></li>
+        </div>
+        <div>
+            <li></li>
+            <li></li>
+        </div>
+    </ul>
+    <ul class="container container-6">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</body>
+
+</html>

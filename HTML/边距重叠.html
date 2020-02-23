@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .father {
+            width: 200px;
+            height: 200px;
+            background-color: olivedrab;
+        }
+
+        .child {
+            width: 100px;
+            height: 100px;
+            background-color: mediumturquoise;
+            margin: 50px;
+        }
+
+        .father-bfc {
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <hr>
+    边距重叠【BFC内，两个盒子之间，如果没有内容如padding，文字，其他元素。那么会出现边距重叠的问题。HTML标签就是一个最大的BFC】
+    <hr>
+    <div class="father">
+        <div class="child"></div>
+    </div>
+    <hr>
+    消除【使父元素生成BFC】
+    <hr>
+    <div class="father father-bfc">
+        <div class="child"></div>
+    </div>
+</body>
+
+</html>

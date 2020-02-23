@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .father {
+            background-color: yellowgreen;
+        }
+
+        .child {
+            float: left;
+            width: 100px;
+            height: 100px;
+            background-color: yellow;
+            margin: 50px;
+        }
+
+        .father-bfc {
+            overflow: hidden;
+        }
+
+        .father-el::after {
+            clear: both;
+            height: 0;
+            content: '';
+            display: block;
+            visibility: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    高度坍塌【浮动导致，脱离文档流，子元素没有撑开父元素】
+    <div class="father">
+        <div class="child"></div>
+    </div>
+    <div style="clear:both"></div>
+    消除【clear:both】
+    <div class="father">
+        <div class="child"></div>
+        <div style="clear:both"></div>
+    </div>
+    消除【bfc】
+    <div class="father father-bfc">
+        <div class="child"></div>
+    </div>
+    消除【伪元素，伪元素:before和:after添加的内容默认是inline元素；这个两个伪元素的content属性，表示伪元素的内容,设置:before和:after时必须设置其content属性，否则伪元素就不起作用。】
+    【clear属性用在内联元素上面没有作用】
+    <div class="father father-el">
+        <div class="child"></div>
+    </div>
+</body>
+
+</html>

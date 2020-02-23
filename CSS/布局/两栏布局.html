@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .left-float {
+            float: left;
+            width: 200px;
+            background-color: greenyellow;
+        }
+
+        .right-float {
+            background-color: yellow;
+        }
+
+        .wraper-abs {
+            position: relative;
+        }
+
+        .left-abs {
+            width: 200px;
+            background-color: greenyellow;
+        }
+
+        .right-abs {
+            position: absolute;
+            left: 200px;
+            top: 0;
+            right: 0;
+            /* 通过left+right实现铺满 */
+            background-color: yellow;
+        }
+
+        .wraper-abs2 {
+            width: 100%;
+            position: relative;
+        }
+
+        .left-abs2 {
+            width: 200px;
+            background: greenyellow;
+            position: absolute;
+        }
+
+        .right-abs2 {
+            margin-left: 200px;
+            /* 将内容拉到右边，不被覆盖 */
+            background: yellow;
+        }
+
+        .wraper-flex {
+            display: flex;
+        }
+
+        .left-flex {
+            width: 200px;
+            background: greenyellow;
+        }
+
+        .right-flex {
+            flex: 1;
+            background: yellow;
+        }
+    </style>
+</head>
+
+<body>
+    浮动方式
+    <div class="wraper-float">
+        <div class="left-float">left</div>
+        <div class="right-float">right</div>
+    </div>
+    绝对定位方式【子元素absolute】
+    <div class="wraper-abs">
+        <div class="left-abs">left</div>
+        <div class="right-abs">right</div>
+    </div>
+    绝对定位方式【子元素margin】
+    <div class="wraper-abs2">
+        <div class="left-abs2">left</div>
+        <div class="right-abs2">right</div>
+    </div>
+    flex方式
+    <div class="wraper-flex">
+        <div class="left-flex">left</div>
+        <div class="right-flex">right</div>
+    </div>
+</body>
+
+</html>
