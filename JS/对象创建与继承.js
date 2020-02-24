@@ -90,4 +90,35 @@ inheritPrototype(Son5, Father)
 
 
 // ES6
+class Father {
+    name = 'father'
+    constructor(prop) {
+        this.prop = prop
+    }
+    func () {
+        console.log('father')
+    }
+    static staticFunc () {
+        console.log('static')
+    }
+}
+class Son extends Father {
+    constructor(name, prop) {
+        super(prop)
+        this.name = name
+    }
+    // 不要与构造函数中的属性同名，不然会被覆盖
+    // getter 与 setter 必须同级出现
+    set a (a) {
+        console.log('set a')
+        // 这里使用下划线，不然this.a使这个setter本身，会出现递归调用的问题，然后range error
+        this._a = a
+    }
+    get a () {
+        console.log('get a')
+        return this._a
+    }
+}
 
+// 常规对象的继承【寄生组合的原理】
+// Object.setPrototypeOf(Son.prototype, father);
