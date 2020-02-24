@@ -14,7 +14,6 @@ console.log(arr.map(callback))
 
 
 // flat 扁平化数组
-
 [1, 2, [3, 4]].flat() // ES6，默认只会“拉平”一层；不管有多少层嵌套，如果都要转成一维数组，可以用 Infinity 关键字作为参数
 // [1, 2, 3, 4]
 // [1, 2, [3, 4]].flat(Infinity)
