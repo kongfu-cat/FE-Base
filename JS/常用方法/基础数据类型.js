@@ -79,3 +79,13 @@ if ({}) { console.log(123) }
 !!{}
 // true
 // 相当于直接强制转换为Boolean类型
+
+
+0 + null
+// 0
+0 + undefined
+// NaN
+
+
+2..toString() // 2.toString() // error. 会将2.识别为小数
+// 2 .toString() // success

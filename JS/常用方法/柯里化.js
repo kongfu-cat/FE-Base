@@ -39,3 +39,5 @@ function func (a, b, c) {
 }
 curry(func)(1, _, 3)(2) // 1-2-3
 curry(func, 1, _, _)(2, 3)
+
+export { curry, _ }
