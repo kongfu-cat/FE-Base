@@ -1,5 +1,5 @@
 
-// 模板标签
+// 标签模板
 concat = function (literals, ...values) {
     // console.log(literals, values);
     let result = literals.reduce((acc, cur, i) => {
