@@ -19,7 +19,7 @@ parseFloat((0.1 + 0.2).toFixed(2)) === 0.3
 null == undefined
 // true
 
-null != false && undefined != true
+null != false && null != true
 // true
 
 undefined != false && undefined != true
