@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>居中</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            height: 100%;
+        }
+
+        .container {
+            display: flex;
+            flex-flow: column nowrap;
+        }
+
+        .top {
+            height: 50px;
+            background-color: rgb(206, 206, 206);
+        }
+
+        .center {
+            display: flex;
+            flex: 1;
+            background-color: rgb(167, 189, 182);
+        }
+
+        .left,
+        .middle,
+        .right {
+            height: 100%;
+            display: flex;
+            flex: 1;
+            background-color: gray;
+            margin: 5px;
+            flex-flow: column nowrap;
+        }
+
+        p {
+            text-align: center;
+            color: yellow;
+        }
+
+        .father {
+            display: block;
+            height: 200px;
+            width: 200px;
+            background-color: burlywood;
+            margin: 5px auto;
+        }
+
+        .son {
+            display: block;
+            height: 100px;
+            width: 100px;
+            background-color: yellowgreen;
+        }
+
+        .hf-ifc {
+            display: inline-block;
+            text-align: center;
+        }
+
+        .hs-ifc {
+            display: inline-block;
+        }
+
+        .hf-margin {}
+
+        .hs-margin {
+            margin: 0 auto;
+        }
+
+        .hf-flex {
+            display: flex;
+            justify-content: center;
+        }
+
+        .hs-flex {}
+
+        .hf-position {}
+
+        .hs-position {
+            position: relative;
+            left: 50%;
+            transform: translateX(-50%)
+        }
+
+        .vf-grid {
+            display: grid;
+        }
+
+        .vs-grid {
+            align-self: center;
+        }
+
+        .vf-flex {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+        }
+
+        .vs-position {
+            position: relative;
+            top: 50%;
+            transform: translateY(-50%)
+        }
+
+        .hvf-grid {
+            display: grid;
+        }
+
+        .hvs-grid {
+            align-self: center;
+            justify-self: center;
+        }
+
+        .hvf-flex {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hvs-position {
+            position: relative;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%)
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="top">
+            <p>文本【text-align+line-height】</p>
+        </div>
+        <div class="center">
+            <div class="left">
+                <p>水平居中</p>
+                <hr>
+                <p>IFC+text-align【父子都是IFC】</p>
+                <div class="father hf-ifc">
+                    <div class="son hs-ifc"></div>
+                </div>
+                <p>margin</p>
+                <div class="father hf-margin">
+                    <div class="son hs-margin"></div>
+                </div>
+                <p>flex</p>
+                <div class="father hf-flex">
+                    <div class="son hs-flex"></div>
+                </div>
+                <p>position</p>
+                <div class="father hf-position">
+                    <div class="son hs-position"></div>
+                </div>
+            </div>
+            <div class="middle">
+                <p>垂直居中</p>
+                <hr>
+                <p>grid</p>
+                <div class="father vf-grid">
+                    <div class="son vs-grid"></div>
+                </div>
+                <p>flex</p>
+                <div class="father vf-flex">
+                    <div class="son vs-flex"></div>
+                </div>
+                <p>position</p>
+                <div class="father vf-position">
+                    <div class="son vs-position"></div>
+                </div>
+            </div>
+            <div class="right">
+                <p>垂直水平居中</p>
+                <hr>
+                <p>grid</p>
+                <div class="father hvf-grid">
+                    <div class="son hvs-grid"></div>
+                </div>
+                <p>flex</p>
+                <div class="father hvf-flex">
+                    <div class="son hvs-flex"></div>
+                </div>
+                <p>position</p>
+                <div class="father hvf-position">
+                    <div class="son hvs-position"></div>
+                </div>
+            </div>
+        </div>
+        <div class="bottom"></div>
+    </div>
+</body>
+
+</html>
