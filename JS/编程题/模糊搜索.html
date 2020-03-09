@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>模糊搜索</title>
+    <style>
+        .container {
+            text-align: center;
+        }
+
+        #input {
+            width: 250px;
+            height: 30px;
+            outline: none;
+            border-radius: 3px;
+            border-width: 1px;
+            text-indent: 10px;
+            box-sizing: border-box;
+        }
+
+        #showBox {
+            list-style: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <input type="text" id="input" autocomplete="off">
+        <ul id="showBox"></ul>
+    </div>
+    <script>
+        let data = ['123', '321', '上海', '上饶']
+        let input = document.getElementById('input'),
+            showBox = document.getElementById('showBox')
+
+        const filterData = function () {
+            let value = input.value
+            if (value == '') {
+                showBox.innerHTML = ''
+                return
+            }
+            let filterData = data.filter(item => item.includes(value))
+            filterData = filterData.map(item => {
+                return `<li>${item.replace(new RegExp(`${value}`), `<span style="color:red">${value}</span>`)}</li>`
+            })
+            showBox.innerHTML = filterData.join('')
+        }
+        // 消抖
+        const debounce = function (fn, wait = 500) {
+            let tId = null
+            return function (...args) {
+                tId && clearTimeout(tId)
+                tId = setTimeout(fn.bind(this, ...args), wait)
+            }
+        }
+        // 缓存结果
+        const memorize = function (fn) {
+            let cache = Object.create(null)
+            return function (...args) {
+                let key = JSON.stringify(args)
+                if (cache[key] == undefined) {
+                    cache[key] = fn.apply(this, args)
+                }
+                return cache[key]
+            }
+        }
+        input.addEventListener('input', debounce(memorize(filterData)))
+    </script>
+</body>
+
+</html>

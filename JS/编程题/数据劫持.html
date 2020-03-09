@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>JS Bin</title>
+    <style>
+        #input {
+            width: 150px;
+            height: 40px;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <input type="text" id="input">
+    </div>
+    <script>
+        let model = {
+            value: 1
+        }
+        let input = document.getElementById('input')
+        const handler = {
+            get: function (target, key, receiver) {
+                return Reflect.get(target, key, receiver)
+            },
+            set: function (target, key, value, receiver) {
+                input.value = value
+                return Reflect.set(target, key, value, receiver)
+            }
+        }
+        let proxy = new Proxy(model, handler)
+        input.value = proxy.value
+        input.addEventListener('blur', function (e) {
+            proxy.value = Number(input.value)
+        })
+        setInterval(_ => { proxy.value++; }, 5000)
+    </script>
+</body>
+
+</html>

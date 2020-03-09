@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>轮播图</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .carousel {
+            position: relative;
+            width: 400px;
+            height: 200px;
+            overflow: hidden;
+            background-color: cadetblue;
+        }
+
+        .item-box {
+            /* 绝对定位，便于移动 */
+            position: absolute;
+            left: -400px;
+            list-style: none;
+            /*
+             * 核心：大小设置为图片总大小
+             * |         width         |
+             * | 4 | 1 | 2 | 3 | 4 | 1 |
+             */
+            width: 2400px;
+        }
+
+        .item {
+            /* | 1 | 2 | 3 | 4 | */
+            float: left;
+            width: 400px;
+            height: 200px;
+            text-align: center;
+            line-height: 200px;
+        }
+
+        .carousel-btn {
+            display: inline-block;
+            width: 30px;
+            height: 40px;
+            line-height: 40px;
+
+            background-color: grey;
+            color: ghostwhite;
+            opacity: 0.5;
+            text-align: center;
+
+        }
+
+        .carousel-btn:hover,
+        .dot:hover {
+            opacity: 0.7;
+            cursor: pointer;
+        }
+
+        .carousel-prev {
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%)
+        }
+
+        .carousel-next {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%)
+        }
+
+        .carousel-dot {
+            position: absolute;
+            left: 50%;
+            bottom: 5px;
+            transform: translateX(-50%);
+        }
+
+        .dot-box {
+            list-style: none;
+        }
+
+        .dot {
+            float: left;
+            width: 12px;
+            height: 12px;
+            border-radius: 6px;
+            background-color: grey;
+            opacity: 0.5;
+            margin: 0 3px;
+        }
+
+        .dot-active {
+            background-color: grey;
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="carousel">
+        <ul class="item-box" id="itemBox">
+            <li class="item" style="background-color: goldenrod">4</li>
+            <li class="item" style="background-color: chartreuse">1</li>
+            <li class="item" style="background-color: yellow">2</li>
+            <li class="item" style="background-color: orange">3</li>
+            <li class="item" style="background-color: goldenrod">4</li>
+            <li class="item" style="background-color: chartreuse">1</li>
+        </ul>
+        <div class="carousel-prev carousel-btn" id="prevBtn">&lt;</div>
+        <div class="carousel-next carousel-btn" id="nextBtn">&gt;</div>
+        <div class="carousel-dot">
+            <ul class="dot-box" id="dotBox">
+                <li class="dot dot-active"></li>
+                <li class="dot"></li>
+                <li class="dot"></li>
+                <li class="dot"></li>
+            </ul>
+        </div>
+    </div>
+    <script>
+        let prevBtn = document.getElementById('prevBtn'),
+            nextBtn = document.getElementById('nextBtn'),
+            itemBox = document.getElementById('itemBox'),
+            dotBox = document.getElementById('dotBox'),
+            items = Array.from(document.getElementsByClassName('item')),
+            dots = Array.from(document.getElementsByClassName('dot'))
+        let itemBoxWidth = items[0].clientWidth
+        let curIndex = 1, duration = 0.8, timeId = null
+        // itemBox.insertBefore(items[items.length - 1].cloneNode(true), items[0])
+        // itemBox.insertBefore(items[0].cloneNode(true), null)
+        // 调整位置
+        const animate = (duration = 0) => {
+            itemBox.style.transition = duration + 's'
+            itemBox.style.left = '-' + (curIndex * itemBoxWidth) + 'px';
+        }
+        const toggleActive = () => {
+            let dotsLen = dots.length
+            for (let i = 0; i < dotsLen; i++) {
+                let className = dots[i].className
+                if (i == curIndex - 1) {
+                    className += ' dot-active'
+                } else {
+                    let index = className.indexOf('dot-active')
+                    className = className.replace(/dot-active/g, '')
+                }
+                dots[i].className = className
+            }
+        }
+        prevBtn.addEventListener('click', function (e) {
+            curIndex--
+            animate(duration)
+            // 实现无缝衔接
+            if (curIndex === 0) {
+                curIndex = items.length - 2
+                // 等待之前的动画过去
+                setTimeout(animate, duration * 1000)
+            }
+            toggleActive()
+            // console.log(curIndex)
+        })
+        nextBtn.addEventListener('click', function (e) {
+            curIndex++
+            animate(duration)
+            if (curIndex === items.length - 1) {
+                curIndex = 1
+                setTimeout(animate, duration * 1000)
+            }
+            toggleActive()
+            // console.log(curIndex)
+        })
+        dotBox.addEventListener('click', function (e) {
+            let el = e.target
+            if (el.nodeName.toLowerCase() === 'li') {
+                let index = dots.indexOf(el)
+                if (index !== -1) {
+                    curIndex = index + 1
+                    animate(duration)
+                    toggleActive()
+                }
+            }
+        })
+        setInterval(() => {
+            nextBtn.click()
+        }, 2000)
+    </script>
+</body>
+
+</html>
