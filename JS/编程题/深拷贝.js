@@ -13,7 +13,8 @@ function deepCopy (obj, visited = []) {
     let index = visited.indexOf(obj)
     if (!~index) {
         visited.push(obj)
-        for (let key of Object.keys(obj)) {
+        // symbol属性
+        for (let key of [...Object.keys(obj), ...Object.getOwnPropertySymbols(obj)]) {
             copy[key] = deepCopy(obj[key], visited)
         }
     } else {
